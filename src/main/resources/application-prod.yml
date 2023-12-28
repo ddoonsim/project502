@@ -1,12 +1,9 @@
-## 팀 공유 용
+## 배포 용
 
 server:
   port: 3000
 
 spring:
-  profiles:
-    active: dev
-
   # 파일 업로드 용량 설정
   servlet:
     multipart:
@@ -16,7 +13,7 @@ spring:
   # 데이터베이스 설정
   datasource:
     driverClassName: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@localhost:1521:orcl
+    url: jdbc:oracle:thin:@localhost:1521:xe
     username: PROJECT
     password: _aA123456
 
@@ -33,18 +30,8 @@ spring:
 
   # 타임리프 설정
   thymeleaf:
-    cache: false
-    prefix: file:src/main/resources/templates/
-
-  # 라이브 리로드 설정
-  devtools:
-    livereload:
-      enabled: true
-
-  # 정적 자원 설정(CSS, JS, 이미지)
-  web:
-    resources:
-      staticLocations: file:src/main/resources/static/
+    cache: true
+    prefix: classpath:/templates/
 
 # 로거 설정
 logging:
@@ -58,5 +45,5 @@ logging:
 # 파일 업로드 경로 설정
 file:
   upload:
-    path: C:/uploads/
+    path: /home/project/uploads/    # (임시)변경 가능
     url: /uploads/
