@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/member")
 @RequiredArgsConstructor
 public class MemberController implements ExceptionProcessor {    // 이 컨트롤러에서 발생한 예외는 ExceptionProcessor로 유입되게 하여 공통으로 처리
+
     private final Utils utils ;
+    private final JoinValidator joinValidator ;
 
     /**
      * 회원가입 폼 템플릿으로 연결
@@ -33,6 +35,8 @@ public class MemberController implements ExceptionProcessor {    // 이 컨트�
      */
     @PostMapping("/join")
     public String joinPs(@Valid RequestJoin form, Errors errors, Model model) {
+
+        joinValidator.validate(form, errors);
 
         if (errors.hasErrors()) {    // 유효성 검사를 통과하지 못한 경우
             return utils.tpl("member/join");
