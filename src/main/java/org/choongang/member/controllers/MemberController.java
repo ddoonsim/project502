@@ -5,12 +5,11 @@ import lombok.RequiredArgsConstructor;
 import org.choongang.commons.ExceptionProcessor;
 import org.choongang.commons.Utils;
 import org.choongang.member.service.JoinService;
+import org.choongang.member.service.MemberInfo;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/member")
@@ -53,4 +52,27 @@ public class MemberController implements ExceptionProcessor {    // 이 컨트�
 
         return utils.tpl("member/login");
     }
+
+    /*@ResponseBody    // Rest방식으로 전환
+    @GetMapping("/info")
+    public void info(Principal principal) {
+        String username = principal.getName();    // 아이디만 가져오기
+        System.out.printf("username=%s%n", username);
+    }*/
+    /*@ResponseBody    // Rest방식으로 전환
+    @GetMapping("/info")
+    public void info(@AuthenticationPrincipal MemberInfo memberInfo) {
+        System.out.println(memberInfo);
+    }*/
+    @ResponseBody
+    @GetMapping("/info")
+    public void info() {
+        // 회원 정보 가져오기
+        MemberInfo memberInfo = (MemberInfo) SecurityContextHolder
+                                .getContext()
+                                .getAuthentication()
+                                .getPrincipal() ;
+        System.out.println(memberInfo);
+    }
+
 }
