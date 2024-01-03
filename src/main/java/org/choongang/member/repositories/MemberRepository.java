@@ -2,6 +2,7 @@ package org.choongang.member.repositories;
 
 import org.choongang.member.entities.Member;
 import org.choongang.member.entities.QMember;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
@@ -11,7 +12,9 @@ import java.util.Optional;
  * DAO를 대체 가능
  */
 public interface MemberRepository extends JpaRepository<Member, Long>, QuerydslPredicateExecutor<Member> {
+    @EntityGraph(attributePaths = "authorities")    // 선별적으로 즉시 로딩 설정
     Optional<Member> findByEmail(String email) ;
+    @EntityGraph(attributePaths = "authorities")    // 선별적으로 즉시 로딩 설정
     Optional<Member> findByUserId(String userId) ;
 
     /**

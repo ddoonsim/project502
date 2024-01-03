@@ -4,9 +4,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.choongang.commons.ExceptionProcessor;
 import org.choongang.commons.Utils;
+import org.choongang.member.MemberUtil;
+import org.choongang.member.entities.Member;
 import org.choongang.member.service.JoinService;
-import org.choongang.member.service.MemberInfo;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +18,7 @@ public class MemberController implements ExceptionProcessor {    // 이 컨트�
 
     private final Utils utils ;
     private final JoinService joinService ;
+    private final MemberUtil memberUtil ;
 
     /**
      * 회원가입 폼 템플릿으로 연결
@@ -64,7 +65,7 @@ public class MemberController implements ExceptionProcessor {    // 이 컨트�
     public void info(@AuthenticationPrincipal MemberInfo memberInfo) {
         System.out.println(memberInfo);
     }*/
-    @ResponseBody
+    /*@ResponseBody
     @GetMapping("/info")
     public void info() {
         // 회원 정보 가져오기
@@ -73,6 +74,16 @@ public class MemberController implements ExceptionProcessor {    // 이 컨트�
                                 .getAuthentication()
                                 .getPrincipal() ;
         System.out.println(memberInfo);
+    }*/
+    @ResponseBody
+    @GetMapping("/info")
+    public void info() {
+        if (memberUtil.isLogin()) {
+            Member member = memberUtil.getMember() ;    // 회원 정보 가져오기
+            System.out.println(member);
+        } else {
+            System.out.println("비회원🫥");
+        }
     }
 
 }
