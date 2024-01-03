@@ -5,6 +5,7 @@ import org.choongang.member.service.LoginFailureHandler;
 import org.choongang.member.service.LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +16,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
  * 시큐리티 설정 클래스
  */
 @Configuration
+@EnableMethodSecurity    // 메서드 단위 별로 인가 설정을 활성화
 public class SecurityConfig {
 
     @Bean

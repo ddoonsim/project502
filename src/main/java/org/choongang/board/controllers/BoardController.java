@@ -3,6 +3,7 @@ package org.choongang.board.controllers;
 import lombok.RequiredArgsConstructor;
 import org.choongang.board.entities.BoardData;
 import org.choongang.board.repositories.BoardDataRepository;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,5 +30,13 @@ public class BoardController {
         data.setSubject("(수정)제목");
         boardDataRepository.flush();
 
+    }
+
+    @ResponseBody
+    @GetMapping("/test2")
+    //@PreAuthorize("hasAuthority('ADMIN')")    // 로그인했을 때만 접근이 가능
+    @Secured({"ADMIN", "MANAGER"})
+    public void test2() {
+        System.out.println("test2🎈");
     }
 }
