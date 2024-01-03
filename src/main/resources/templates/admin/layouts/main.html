@@ -6,6 +6,9 @@
     <meta charset="UTF-8">
     <title th:if="${pageTitle != null}" th:text="${pageTitle}"></title>
 
+    <!--아이콘 사이트 : xeicon-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+
     <!--모든 페이지에 적용되는 공통 스타일시트-->
     <link rel="stylesheet" type="text/css" th:href="@{/common/css/style.css}">
     <!--페이지마다 적용되는 css가 다른 경우에 css파일을 컨트롤러에서 전달 받아서 반복문으로 대입-->
@@ -40,9 +43,12 @@
 
 <body>
     <header th:replace="~{admin/outlines/header::common}"></header>  <!--헤더-->
-    <main layout:fragment="content">
-        <h1>본문</h1>
+    <main>
+        <aside th:replace="~{admin/outlines/_side::menus}"></aside>  <!--사이드 바에 메뉴-->
+        <section>
+            <nav th:replace="~{admin/outlines/_submenu::submenus}"></nav>
+            <section layout:fragment="content"></section>  <!--본문-->
+        </section>
     </main>
-    <footer th:replace="~{admin/outlines/footer::common}"></footer>  <!--풋터-->
 </body>
 </html>

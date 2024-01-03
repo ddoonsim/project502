@@ -40,7 +40,7 @@ public class SecurityConfig {
         /* 인가 설정 S - 접근 통제 */
         http.authorizeHttpRequests(c -> {
             c.requestMatchers("/mypage/**").authenticated()    // mypage를 포함한 하위 페이지를 회원 전용 페이지로 설정
-                    .requestMatchers("/admin/**").hasAnyAuthority("ADMIN", "MANAGER")
+                    //.requestMatchers("/admin/**").hasAnyAuthority("ADMIN", "MANAGER")
                         // admin을 포함한 하위 페이지를 관리자 전용 페이지로
                     .anyRequest().permitAll() ;    // 그 외 모든 페이지는 모든 권한으로 접근 가능
         });
