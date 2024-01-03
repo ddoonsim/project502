@@ -22,10 +22,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         // 세션에 저장된 메세지 일괄 삭제 처리
         MemberUtil.clearLoginData(session);
 
-        // 회원 정보 조회 & 세션에 저장
+        // authentication객체를 통해 회원 정보 조회
         MemberInfo memberInfo = (MemberInfo) authentication.getPrincipal() ;
         Member member = memberInfo.getMember() ;
-        session.setAttribute("member", member);
+        session.setAttribute("member", member);    // 세션에 저장
 
         // redirectUrl(쿼리스트링)에 값이 있으면 해당 주소로 페이지 이동
                                  // 값이 없으면 메인페이지로 이동

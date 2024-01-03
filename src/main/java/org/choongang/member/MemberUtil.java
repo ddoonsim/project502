@@ -16,6 +16,7 @@ public class MemberUtil {
 
     /**
      * 로그인 여부를 확인하는 메서드
+     *     ## 회원 정보가 없으면(getMember()가 false이면) ==> 로그인 X
      */
     public boolean isLogin() {
         return getMember() != null ;
