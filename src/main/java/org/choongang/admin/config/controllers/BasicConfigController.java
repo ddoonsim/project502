@@ -20,6 +20,7 @@ public class BasicConfigController implements ExceptionProcessor {
     private final ConfigInfoService infoService ;
 
     @ModelAttribute("menuCode")
+    // 이 컨트롤러 내부, 전역에서 유지하여 뷰 페이지로 전달할 데이터 ==> @ModelAttribute("attributeName")
     public String getMenuCode() {
         return "config" ;
     }
