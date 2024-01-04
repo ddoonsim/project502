@@ -39,7 +39,7 @@ h2 { margin: 0 0 10px 0; font-size: 1.385rem; line-height: 1; }
 /* 제목 공통 E */
 
 /* 테이블 공통 S */
-.table_cols { border-space: 0; width: 100%; border-top: 2px solid #222; }
+.table_cols { border-space: 0; width: 100%; border-top: 1.5px solid #222; }
 .table_cols th, table_cols td { padding: 10px; border-bottom: 1px solid #d5d5d5; }
 .table_cols th { background: #ccc; font-weight: normal; }
 /* 테이블 공통 E */
