@@ -77,4 +77,14 @@ public class Utils {
     public static String getMessage(String code) {
         return getMessage(code, null) ;
     }
+
+    /**
+     * \n 또는 \r\n --> <br>태그로 변환하는 메서드
+     */
+    public String nl2br(String str) {
+        str = str.replaceAll("\\n", "<br>")    // 줄바꿈 태그로 변경
+                .replaceAll("\\r", "") ;       // 리눅스와 맥에는 \r이 없기 때문에 제거
+
+        return str ;
+    }
 }

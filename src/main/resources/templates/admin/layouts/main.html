@@ -4,38 +4,44 @@
 
 <head>
     <meta charset="UTF-8">
-    <title th:if="${pageTitle != null}" th:text="${pageTitle}"></title>
+    <meta th:if="${siteConfig.siteDescription != null}" name="description" th:content="${siteConfig.siteDescription}">
+    <meta th:if="${siteConfig.siteKeywords != null}" name="keywords" th:content="${siteConfig.siteKeywords}">
+    <title>
+        <th:block  th:if="${pageTitle != null}" th:text="${pageTitle + ' - '}"></th:block>
+        <th:block th:if="${siteConfig.siteTitle != null}" th:text="${siteConfig.siteTitle}"></th:block>
+    </title>
 
     <!--아이콘 사이트 : xeicon-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 
     <!--모든 페이지에 적용되는 공통 스타일시트-->
-    <link rel="stylesheet" type="text/css" th:href="@{/common/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/common/css/style.css?v={v}(v=${siteConfig.cssJsVersion})}">
     <!--페이지마다 적용되는 css가 다른 경우에 css파일을 컨트롤러에서 전달 받아서 반복문으로 대입-->
     <link rel="stylesheet" type="text/css"
           th:each="cssFile : ${addCommonCss}"
-          th:href="@{/common/css/{file}.css(file=${addCommonCss})}">
+          th:href="@{/common/css/{file}.css?v={v}(file=${cssFile}, v=${siteConfig.cssJsVersion})}">
 
     <!--관리자 모드에만 적용되는 스타일시트-->
-    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/style.css?v={v}(v=${siteConfig.cssJsVersion})}">
     <!--관리자 모드의 페이지마다 적용되는 css가 다른 경우에 css파일을 컨트롤러에서 전달 받아서 반복문으로 대입-->
     <link rel="stylesheet" type="text/css"
           th:each="cssFile : ${addCss}"
-          th:href="@{/admin/css/{file}.css(file=${cssFile})}">
+          th:href="@{/admin/css/{file}.css?v={v}(file=${cssFile}, v=${siteConfig.cssJsVersion})}">
 
     <!--컨트롤러를 거치지 않는 경우에도 CSS가 적용될 수 있게 내용 치환으로 외부 CSS 적용-->
     <th:block layout:fragment="addCss"></th:block>
 
     <!--모든 페이지에 적용되는 공통 js-->
-    <script th:src="@{/common/js/common.js}"></script>
+    <script th:src="@{/common/js/common.js?v={v}(v=${siteConfig.cssJsVersion})}"></script>
     <!--페이지마다 적용되는 js파일을 컨트롤러에서 전달 받아서 반복문으로 대입-->
     <script th:each="jsFile : ${addCommonScript}"
-            th:src="@{/common/js/{file}.js(file=${jsFile})}"></script>
+            th:src="@{/common/js/{file}.js?v={v}(file=${jsFile}, v=${siteConfig.cssJsVersion})}"></script>
 
     <!--관리자 모드에만 적용되는 js-->
-    <script th:src="@{/admin/js/common.js}"></script>
+    <script th:src="@{/admin/js/common.js?v={v}(v=${siteConfig.cssJsVersion})}"></script>
     <!--관리자모드의 페이지마다 적용되는 js파일을 컨트롤러에서 전달 받아서 반복문으로 대입-->
-    <script th:each="jsFile : ${addScript}" th:src="@{/admin/js/{file}.js(file=${jsFile})}"></script>
+    <script th:each="jsFile : ${addScript}"
+            th:src="@{/admin/js/{file}.js?v={v}(file=${jsFile}, v=${siteConfig.cssJsVersion})}"></script>
 
     <!--컨트롤러를 거치지 않는 경우에도 스크립트가 적용될 수 있게 내용 치환\-->
     <th:block layout:fragment="addScript"></th:block>

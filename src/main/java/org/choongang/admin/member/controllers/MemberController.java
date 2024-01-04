@@ -22,6 +22,12 @@ public class MemberController implements ExceptionProcessor {
         return "member" ;
     }
 
+
+    @ModelAttribute("pageTitle")
+    public String getPageTitle() {
+        return "회원관리" ;
+    }
+
     /**
      * member의 하위 메뉴를 뷰 페이지에 전달
      */
