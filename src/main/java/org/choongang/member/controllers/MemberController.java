@@ -4,12 +4,15 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.choongang.commons.ExceptionProcessor;
 import org.choongang.commons.Utils;
-import org.choongang.member.MemberUtil;
-import org.choongang.member.entities.Member;
 import org.choongang.member.service.JoinService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/member")
@@ -18,13 +21,13 @@ public class MemberController implements ExceptionProcessor {    // 이 컨트�
 
     private final Utils utils ;
     private final JoinService joinService ;
-    private final MemberUtil memberUtil ;
 
     /**
      * 회원가입 폼 템플릿으로 연결
      */
     @GetMapping("/join")
-    public String join(@ModelAttribute RequestJoin form) {
+    public String join(@ModelAttribute RequestJoin form, Model model) {
+        commonProcess("join", model);
 
         return utils.tpl("member/join");    // 템플릿 주소로 연결
     }
@@ -34,7 +37,8 @@ public class MemberController implements ExceptionProcessor {    // 이 컨트�
      * 회원가입 성공 ==> 로그인 페이지로 이동
      */
     @PostMapping("/join")
-    public String joinPs(@Valid RequestJoin form, Errors errors) {
+    public String joinPs(@Valid RequestJoin form, Errors errors, Model model) {
+        commonProcess("join", model);
 
         joinService.process(form, errors);    // 유효성 검사 & 회원가입 DB 처리
 
@@ -49,41 +53,22 @@ public class MemberController implements ExceptionProcessor {    // 이 컨트�
      * 로그인 페이지로 연결
      */
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
+        commonProcess("login", model);
 
         return utils.tpl("member/login");
     }
 
-    /*@ResponseBody    // Rest방식으로 전환
-    @GetMapping("/info")
-    public void info(Principal principal) {
-        String username = principal.getName();    // 아이디만 가져오기
-        System.out.printf("username=%s%n", username);
-    }*/
-    /*@ResponseBody    // Rest방식으로 전환
-    @GetMapping("/info")
-    public void info(@AuthenticationPrincipal MemberInfo memberInfo) {
-        System.out.println(memberInfo);
-    }*/
-    /*@ResponseBody
-    @GetMapping("/info")
-    public void info() {
-        // 회원 정보 가져오기
-        MemberInfo memberInfo = (MemberInfo) SecurityContextHolder
-                                .getContext()
-                                .getAuthentication()
-                                .getPrincipal() ;
-        System.out.println(memberInfo);
-    }*/
-    @ResponseBody
-    @GetMapping("/info")
-    public void info() {
-        if (memberUtil.isLogin()) {
-            Member member = memberUtil.getMember() ;    // 회원 정보 가져오기
-            System.out.println(member);
-        } else {
-            System.out.println("비회원🫥");
+    /**
+     * 컨트롤러에 공통으로 처리할 내용
+     */
+    private void commonProcess(String mode, Model model) {
+        mode = StringUtils.hasText(mode) ? mode : "join" ;
+        String pageTitle = Utils.getMessage("회원가입", "commons") ;
+        if (mode.equals("login")) {
+            pageTitle = Utils.getMessage("로그인", "commons") ;
         }
+        model.addAttribute("pageTitle", pageTitle) ;
     }
 
 }
