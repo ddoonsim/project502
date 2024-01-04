@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 /**
- * 사이트 설정을 프로젝트 전체에 적용하는 컨트롤러
+ * 관리자의 사이트 설정을 프로젝트 전체에 적용하는 컨트롤러
  */
 @ControllerAdvice("org.choongang")
 @RequiredArgsConstructor
@@ -17,11 +17,6 @@ public class BasicConfigAdvice {
 
     @ModelAttribute("siteConfig")
     public BasicConfig getBasicConfig() {
-        /*Optional<Map<String, String>> opt = infoService.get("basic", new TypeReference<>() {});
-
-        Map<String, String> config = opt.orElseGet(HashMap::new) ;
-        System.out.println("config : " + config);*/
-
         BasicConfig config = infoService.get("basic", BasicConfig.class).orElseGet(BasicConfig::new) ;
 
         return config ;
