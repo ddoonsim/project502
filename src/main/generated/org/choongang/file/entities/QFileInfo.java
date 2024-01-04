@@ -27,6 +27,12 @@ public class QFileInfo extends EntityPathBase<FileInfo> {
     //inherited
     public final StringPath createdBy = _super.createdBy;
 
+    public final BooleanPath done = createBoolean("done");
+
+    public final StringPath extension = createString("extension");
+
+    public final StringPath fileName = createString("fileName");
+
     public final StringPath gid = createString("gid");
 
     public final StringPath location = createString("location");
