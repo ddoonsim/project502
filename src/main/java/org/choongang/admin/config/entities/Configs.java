@@ -9,6 +9,7 @@ import lombok.Data;
 /**
  * 데이터만 필요한 엔터티인 경우, 여러 개의 컬럼을 정의 X
  * JSON 형식의 데이터 컬럼만 정의하여 CRUD 작업 수행
+ *      ## JSON 형식으로 된 데이터는 수정 및 보완이 용이
  */
 @Data
 @Entity
