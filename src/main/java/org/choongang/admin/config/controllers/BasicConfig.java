@@ -11,5 +11,6 @@ public class BasicConfig {
     private String siteDescription = "" ;
     private String siteKeywords = "" ;
     private int cssJsVersion = 1 ;
+    private String thumbSize = "" ;
     private String joinTerms = "" ;
 }
