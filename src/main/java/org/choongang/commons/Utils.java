@@ -3,9 +3,13 @@ package org.choongang.commons;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.choongang.admin.config.controllers.BasicConfig;
+import org.choongang.file.service.FileInfoService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Component    // 스프링 관리 객체로 등록
@@ -14,6 +18,7 @@ public class Utils {
 
     private final HttpServletRequest request ;
     private final HttpSession session ;
+    private final FileInfoService fileInfoService ;
 
     // 메세지.properties
     private static final ResourceBundle commonsBundle ;
@@ -86,5 +91,51 @@ public class Utils {
                 .replaceAll("\\r", "") ;       // 리눅스와 맥에는 \r이 없기 때문에 제거
 
         return str ;
+    }
+
+    /**
+     * 썸네일 이미지 사이즈를 admin의 기본 설정에서 저장한 값으로 설정
+     */
+    public List<int[]> getThumbSize() {
+        BasicConfig config = (BasicConfig) request.getAttribute("siteConfig") ;
+        String thumbSize = config.getThumbSize();    // \r\n
+        String[] thumbsSize = thumbSize.split("\\n") ;
+        List<int[]> data = Arrays.stream(thumbsSize)
+                .filter(StringUtils::hasText)    // 빈 행 제거
+                .map(s -> s.replaceAll("\\s+", ""))    // 문자열 내의 공백 모두 제거
+                .map(this::toConvert).toList() ;
+
+        return data ;
+    }
+
+    /**
+     * nXn 형태의 썸네일 사이즈를 정수 배열로 변환
+     */
+    private int[] toConvert(String size) {
+        size = size.trim() ;    // 앞, 뒤 공백 제거
+        // \\r 제거, X로 두 수로 구분
+        int[] data = Arrays.stream(size.replaceAll("\\r", "").toUpperCase().split("X"))
+                .mapToInt(Integer::parseInt).toArray() ;
+
+        return data ;
+    }
+
+    /**
+     * view(타임리프)에서 이미지 태그로 썸네일 이미지 화면에 출력하는 편의 기능
+     */
+    public String printThumb(long seq, int width, int height, String className) {
+        String[] data = fileInfoService.getThumb(seq, width, height);
+        if (data != null) {
+            String cls = StringUtils.hasText(className) ? " class='" + className + "'" : "" ;
+            String image = String.format("<img src='%s'%s>", data[1], cls) ;
+            return image ;
+        }
+
+        return "" ;
+    }
+
+    // 클래스 이름이 필요 없는 경우
+    public String printThumb(long seq, int width, int height) {
+        return printThumb(seq, width, height, null) ;
     }
 }
