@@ -24,6 +24,9 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(fileProperties.getUrl() + "**")  // ** : 하위 경로 모두 포함
                 .addResourceLocations("file:///" + fileProperties.getPath()) ;
+
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/static/") ;    // CSS, JS 자원이 서버 배포 시에 적용되지 않는 오류 해결
     }
 
     @Bean
