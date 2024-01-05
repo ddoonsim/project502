@@ -18,7 +18,7 @@ class ProjectApplicationTests {
 	@Autowired
 	private AuthoritiesRepository authoritiesRepository ;
 
-	@Test @Disabled  // 실행 X
+	@Test @Disabled    // 실행 X
 	void contextLoads() {
 		// 회원 조회
 		Member member = memberRepository.findByUserId("user01").orElse(null) ;
