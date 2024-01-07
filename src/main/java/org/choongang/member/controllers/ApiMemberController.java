@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/member")
+@RequestMapping("/api/member/email")
 @RequiredArgsConstructor
 public class ApiMemberController implements ExceptionRestProcessor {
 
-    private final MemberRepository memberRepository ;
+    private final MemberRepository memberRepository;
 
     /**
      * 이메일 중복 여부 체크
@@ -23,9 +23,9 @@ public class ApiMemberController implements ExceptionRestProcessor {
     public JSONData<Object> duplicateEmailCheck(@RequestParam("email") String email) {
         boolean isExists = memberRepository.existsByEmail(email);
 
-        JSONData<Object> data = new JSONData<>() ;
+        JSONData<Object> data = new JSONData<>();
         data.setSuccess(isExists);
 
-        return data ;
+        return data;
     }
 }
