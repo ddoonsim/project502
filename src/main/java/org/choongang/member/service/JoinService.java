@@ -39,6 +39,7 @@ public class JoinService {
         member.setUserId(form.getUserId());
         member.setPassword(hash);
         member.setName(form.getName());
+        member.setGid(form.getGid());
 
         process(member);    // DB에 신규회원 데이터 추가하는 DB 처리
 

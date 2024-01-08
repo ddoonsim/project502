@@ -76,13 +76,16 @@ public class MemberController implements ExceptionProcessor {    // 이 컨트�
         mode = StringUtils.hasText(mode) ? mode : "join" ;
         String pageTitle = Utils.getMessage("회원가입", "commons") ;
 
+        List<String> addCommonScript = new ArrayList<>() ;    // 공통 자바스크립트
         List<String> addCss = new ArrayList<>() ;
         List<String> addScript = new ArrayList<>() ;
 
         if (mode.equals("login")) {
             pageTitle = Utils.getMessage("로그인", "commons") ;
         } else if (mode.equals("join")) {
-            // 회원가입
+            // 공통 JS
+            addCommonScript.add("fileManager") ;
+            // 회원가입 페이지를 위한 CSS, JS
             addCss.add("member/join") ;
             addScript.add("member/join") ;
         } else if (mode.equals("find_pw")) {
@@ -92,6 +95,7 @@ public class MemberController implements ExceptionProcessor {    // 이 컨트�
         model.addAttribute("pageTitle", pageTitle) ;
         model.addAttribute("addCss", addCss) ;
         model.addAttribute("addScript", addScript) ;
+        model.addAttribute("addCommonScript", addCommonScript) ;
     }
 
     /**
