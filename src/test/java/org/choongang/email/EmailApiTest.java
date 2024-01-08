@@ -22,7 +22,7 @@ public class EmailApiTest {    // API 통합 테스트
     @DisplayName("이메일 인증 코드 발급 및 검증 테스트")
     void sendVerifyEmailTest() throws Exception {
         // 인증 코드 발급 테스트
-        HttpSession session = mockMvc.perform(get("/api/email/verity?email=2sujg97@naver.com"))
+        HttpSession session = mockMvc.perform(get("/api/email/verify?email=2sujg97@naver.com"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn().getRequest().getSession() ;

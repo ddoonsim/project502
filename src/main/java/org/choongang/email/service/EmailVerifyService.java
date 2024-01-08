@@ -18,7 +18,7 @@ public class EmailVerifyService {
      * 이메일 인증 번호 발급 전송
      */
     public boolean sendCode(String email) {
-        int authNum = (int)(Math.random() * 99999) ;
+        int authNum = (int)(Math.random() * 99999);
 
         session.setAttribute("EmailAuthNum", authNum);
         session.setAttribute("EmailAuthStart", System.currentTimeMillis());
@@ -26,12 +26,13 @@ public class EmailVerifyService {
         EmailMessage emailMessage = new EmailMessage(
                 email,
                 Utils.getMessage("Email.verification.subject", "commons"),
-                Utils.getMessage("Email.verification.message", "commons")) ;
-        Map<String, Object> tplData = new HashMap<>() ;
-        tplData.put("authNum", authNum) ;
+                Utils.getMessage("Email.verification.message", "commons"));
+        Map<String, Object> tplData = new HashMap<>();
+        tplData.put("authNum", authNum);
 
-        return sendService.sendMail(emailMessage, "auth", tplData) ;
+        return sendService.sendMail(emailMessage, "auth", tplData);
     }
+
 
     public boolean check(int code) {
         Integer authNum = (Integer) session.getAttribute("EmailAuthNum") ;
