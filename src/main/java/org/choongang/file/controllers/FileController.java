@@ -22,11 +22,6 @@ public class FileController implements ExceptionProcessor {
     private final FileDeleteService deleteService ;
     private final FileDownloadService downloadService ;
 
-    @GetMapping("/upload")
-    public String upload() {
-        return "upload" ;
-    }
-
     @GetMapping("/delete/{seq}")
     public String delete(@PathVariable("seq") long seq, Model model) {
         deleteService.delete(seq);
