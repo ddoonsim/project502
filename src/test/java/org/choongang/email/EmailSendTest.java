@@ -30,7 +30,7 @@ public class EmailSendTest {
 
     @Test
     @DisplayName("템플릿 형태로 전송 테스트")
-    void sentWithTplTest() {
+    void sendWithTplTest() {
         EmailMessage message = new EmailMessage("2sujg97@naver.com", "제목!", "내용...") ;
         Map<String, Object> tplData = new HashMap<>() ;
         tplData.put("authNum", "123456") ;
