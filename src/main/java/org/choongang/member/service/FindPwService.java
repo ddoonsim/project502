@@ -51,7 +51,7 @@ public class FindPwService {
         repository.saveAndFlush(member);
 
         /* 비밀번호 초기화 E */
-        EmailMessage emailMessage = new EmailMessage(email, Utils.getMessage("Email.password.reset", "commons"), Utils.getMessage("Email.password.reset", "commons"));
+        EmailMessage emailMessage = new EmailMessage(email, Utils.getMessage("Email.password.reset", "commons"), newPassword);
         Map<String, Object> tplData = new HashMap<>();
         tplData.put("password", newPassword);
         sendService.sendMail(emailMessage, "password_reset", tplData);
