@@ -78,7 +78,7 @@ public class MemberController implements ExceptionProcessor {    // 이 컨트�
 
         List<String> addCommonScript = new ArrayList<>() ;    // 공통 자바스크립트
         List<String> addCss = new ArrayList<>() ;
-        List<String> addScript = new ArrayList<>() ;
+        List<String> addScript = new ArrayList<>() ;    // 프론트 자바스크립트
 
         if (mode.equals("login")) {
             pageTitle = Utils.getMessage("로그인", "commons") ;
@@ -88,6 +88,8 @@ public class MemberController implements ExceptionProcessor {    // 이 컨트�
             // 회원가입 페이지를 위한 CSS, JS
             addCss.add("member/join") ;
             addScript.add("member/join") ;
+            addScript.add("member/form") ;
+
         } else if (mode.equals("find_pw")) {
             // 비밀번호 찾기
             pageTitle = Utils.getMessage("비밀번호_찾기", "commons") ;

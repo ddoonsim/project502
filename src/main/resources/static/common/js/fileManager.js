@@ -29,7 +29,19 @@ commonLib.fileManager = {
             }
 
             const { ajaxLoad } = commonLib ;
-            ajaxLoad("POST", "/api/file", formData, "json") ;
+            ajaxLoad("POST", "/api/file", formData, "json")
+                .then(res => {    // 요청 성공 시
+                    if (res && res.success) {    // 파일 업로드 성공 시
+
+                        if (typeof parent.callbackFileUpload == 'function') {
+                            parent.callbackFileUpload(res.data) ;
+                        }
+
+                    } else {    // 파일 업로드 실패 시
+                        if (res) alert(res.message) ;
+                    }
+                })
+                .catch(err => console.error(err)) ;
 
         } catch (err) {
             alert(err.message) ;
@@ -56,6 +68,6 @@ window.addEventListener("DOMContentLoaded", function() {
     // 파일 선택 시 이벤트 처리
     fileEl.addEventListener("change", function(e) {
         //console.dir(e.target.files) ;    // 파일에 대한 정보 콘솔창에서 확인
-        CommonLib.fileManager.upload(e.target.files) ;
+        commonLib.fileManager.upload(e.target.files);
     });
 });
