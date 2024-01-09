@@ -13,6 +13,8 @@
         <th:block th:if="${siteConfig.siteTitle != null}" th:text="${siteConfig.siteTitle}"></th:block>
     </title>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+
     <!--모든 페이지에 적용되는 공통 스타일시트-->
     <link rel="stylesheet" type="text/css" th:href="@{/common/css/style.css?v={v}(v=${siteConfig.cssJsVersion})}">
     <!--페이지마다 적용되는 css가 다른 경우에 css파일을 컨트롤러에서 전달 받아서 반복문으로 대입-->
@@ -52,5 +54,6 @@
         <h1>본문</h1>
     </main>
     <footer th:replace="~{front/outlines/footer::common}"></footer>  <!--풋터-->
+    <iframe name="ifrmProcess" class="dn"></iframe>
 </body>
 </html>
