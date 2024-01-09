@@ -26,6 +26,7 @@ public class FileController implements ExceptionProcessor {
     public String delete(@PathVariable("seq") long seq, Model model) {
         deleteService.delete(seq);
 
+        // 파일 삭제 후 후속 처리 --> 자바스크립트 함수로 처리
         String script = String.format("if (typeof parent.callbackFileDelete == 'function') parent.callbackFileDelete(%d);", seq) ;
         model.addAttribute("script", script) ;
 

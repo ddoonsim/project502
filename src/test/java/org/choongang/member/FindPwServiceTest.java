@@ -17,6 +17,6 @@ public class FindPwServiceTest {
     @Test
     @DisplayName("비밀번호 초기화 및 초기화된 메일 이메일 전송 테스트")
     void resetTest() {
-        assertDoesNotThrow(() -> service.reset("yonggyo00@kakao.com"));
+        assertDoesNotThrow(() -> service.reset("2sujg97@naver.com"));
     }
 }

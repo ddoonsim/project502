@@ -1,6 +1,8 @@
 package org.choongang.member.service;
 
 import lombok.RequiredArgsConstructor;
+import org.choongang.file.entities.FileInfo;
+import org.choongang.file.service.FileInfoService;
 import org.choongang.member.entities.Authorities;
 import org.choongang.member.entities.Member;
 import org.choongang.member.repositories.MemberRepository;
@@ -17,6 +19,7 @@ import java.util.List;
 public class MemberInfoService implements UserDetailsService {    // 회원 조회
 
     private final MemberRepository memberRepository ;
+    private final FileInfoService fileInfoService ;
 
     /**
      * 회원 조회
@@ -36,6 +39,13 @@ public class MemberInfoService implements UserDetailsService {    // 회원 조�
                     .map(s -> new SimpleGrantedAuthority(s.getAuthority().name()))    // SimpleGrantedAuthority의 매개값에는 문자열만 가능하기 때문에 상수 --> String으로 변환
                     .toList() ;
         }
+
+        /* 프로필 이미지 출력 S */
+        List<FileInfo> files = fileInfoService.getListDone(member.getGid()) ;    // 업로드 완료된 프로필 이미지만 가져오기
+        if (files != null && !files.isEmpty()) {
+            member.setProfileImage(files.get(0));    // 프로필 이미지를 멤버 엔터티에 추가
+        }
+        /* 프로필 이미지 출력 E */
 
         return MemberInfo.builder()
                 .email(member.getEmail())

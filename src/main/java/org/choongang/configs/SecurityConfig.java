@@ -58,6 +58,9 @@ public class SecurityConfig {
         });
         /* 인가 설정 E - 접근 통제 */
 
+        // 같은 서버 내에서는 iframe 활성화(기본값은 iframe이 막혀 있음!! 변경 필수!)
+        http.headers(c -> c.frameOptions(f -> f.sameOrigin())) ;
+
         // 시큐리티 설정 무력화
         return http.build() ;
     }
