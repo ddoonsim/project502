@@ -95,6 +95,7 @@ public class BoardController implements ExceptionProcessor {
         List<String> addScript = new ArrayList<>() ;
         if (mode.equals("add") || mode.equals("edit")) {    // 게시판 등록 또는 수정할 때
             addCommonScript.add("ckeditor5/ckeditor") ;
+            addCommonScript.add("fileManager") ;
             addScript.add("board/form") ;
         }
 
