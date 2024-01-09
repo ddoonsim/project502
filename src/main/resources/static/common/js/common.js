@@ -82,3 +82,19 @@ commonLib.sendEmailVerifyCheck = function(authNum) {
         })
         .catch(err => console.error(err));
 };
+
+/**
+* 위지윅 에디터 로드
+*/
+commonLib.loadEditor = function(id, height) {
+    if (!id) {
+        return ;
+    }
+
+    height = height || 450 ;
+
+    // ClassicEditor 객체를 통해서 에디터를 만들 수 있음
+    return ClassicEditor.create(document.getElementById(id), {
+        height
+    });
+}
