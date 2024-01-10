@@ -19,6 +19,28 @@ public class QBoard extends EntityPathBase<Board> {
 
     public static final QBoard board = new QBoard("board");
 
+    public final org.choongang.commons.entities.QBaseMember _super = new org.choongang.commons.entities.QBaseMember(this);
+
+    public final BooleanPath active = createBoolean("active");
+
+    public final StringPath bid = createString("bid");
+
+    public final StringPath bName = createString("bName");
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    //inherited
+    public final StringPath createdBy = _super.createdBy;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
+
+    //inherited
+    public final StringPath modifiedBy = _super.modifiedBy;
+
+    public final NumberPath<Integer> rowsPerPage = createNumber("rowsPerPage", Integer.class);
+
     public QBoard(String variable) {
         super(Board.class, forVariable(variable));
     }
