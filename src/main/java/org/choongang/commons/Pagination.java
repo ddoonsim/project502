@@ -94,7 +94,7 @@ public class Pagination {
     }
 
     public List<String[]> getPages() {
-        // 0 : 페이지 번호, 1: 페이지 url --> ?page=페이지번호
+        // 0 : 페이지 번호, 1: 페이지 url --> ?page=페이지번호 쿼리스트링 자동 완성
         return IntStream.rangeClosed(firstRangePage, lastRangePage)
                 .mapToObj(p -> new String[] { String.valueOf(p), baseURL + "page=" + p }).toList() ;
     }
