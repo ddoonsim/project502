@@ -71,7 +71,7 @@ public class Pagination {
             String queryString = request.getQueryString();    // 쿼리스트링 가져오기
             if (StringUtils.hasText(queryString)) {
                 queryString = queryString.replace("?", "") ;
-                baseURL = Arrays.stream(queryString.split("&"))
+                baseURL += Arrays.stream(queryString.split("&"))
                             .filter(s -> !s.contains("page="))    // page= 건너뛰기
                             .collect(Collectors.joining("&"));    // 문자열 배열의 요소들을 연결하여 하나의 문자열로 변환
 
