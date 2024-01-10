@@ -163,4 +163,13 @@ public class Utils {
 
         return chars.stream().limit(length).collect(Collectors.joining());
     }
+
+    /**
+     * 매개변수 정수값이 0이하 ==> 기본값으로 대체
+     * @param num : 주입되는 값
+     * @param replace : 대체될 정수
+     */
+    public static int onlyPositiveNumber(int num, int replace) {
+        return num < 1 ? replace : num ;
+    }
 }
